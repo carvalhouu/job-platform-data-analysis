@@ -38,19 +38,26 @@ CREATE TABLE IF NOT EXISTS applications (
 """
 conn.executescript(create_tables)
 
-# Query 1: Total de candidaturas por vaga
+# Query: Total de candidaturas por vaga
 query = """
-SELECT job_id, COUNT(*) AS total_applications
+SELECT 
+    job_id, 
+    COUNT(*) AS total_applications
 FROM applications
 GROUP BY job_id
 ORDER BY total_applications DESC;
 """
 
+# Executa a query e transforma em DataFrame
 df = pd.read_sql_query(query, conn)
 
-print("\nResumo das análises:")
+# Exibe resumo no terminal
+print("Resumo das análises - Total de candidaturas por vaga:")
 print(df.head())
 
+# Exporta resultado para CSV
 df.to_csv("output_total_applications.csv", index=False)
-print("\nArquivo 'output_total_applications.csv' gerado com sucesso.")
+print("Arquivo 'output_total_applications.csv' gerado com sucesso.")
 
+# Fecha a conexão
+conn.close()
