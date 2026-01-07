@@ -48,7 +48,9 @@ ORDER BY total_applications DESC;
 
 df = pd.read_sql_query(query, conn)
 
-print("Total de candidaturas por vaga:")
-print(df)
+print("\nResumo das análises:")
+print(df.head())
 
-conn.close()
+df.to_csv("output_total_applications.csv", index=False)
+print("\nArquivo 'output_total_applications.csv' gerado com sucesso.")
+
